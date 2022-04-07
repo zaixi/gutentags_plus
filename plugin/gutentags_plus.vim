@@ -298,11 +298,24 @@ function! s:GscopeFind(bang, what, ...)
 		call cursor(nrow, ncol)
 	endif
 	if success != 0 && a:bang == 0
+        if get(g:, 'gutentags_plus_use_telescope', 0) == 1
+            exec ':Telescope GscopeFind'
+        else
 		let height = get(g:, 'gutentags_plus_height', 6)
 		call s:quickfix_open(height)
+        endif
 	endif
 endfunc
 
+function! s:switch_telescope_layout()
+    if get(g:, 'gutentags_plus_layout_strategy', 'horizontal') == 'horizontal'
+        let g:gutentags_plus_layout_strategy = 'center'
+    else
+        let g:gutentags_plus_layout_strategy = 'horizontal'
+    end
+endfunc
+
+command! -bang GscopeSwitchLayout call s:switch_telescope_layout()
 
 command! -nargs=+ -bang GscopeFind call s:GscopeFind(<bang>0, <f-args>)
 
