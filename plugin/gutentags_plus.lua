@@ -76,6 +76,10 @@ internal.GscopeFind = function(opts)
   end
   title = locations[1]['text']
   table.remove(locations, 1)
+  if #locations == 1 then
+      vim.cmd [[ cnext ]]
+      return 0
+  end
 
   pickers.new(opts, {
     prompt_title = title,
