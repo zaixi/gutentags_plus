@@ -2,7 +2,7 @@ local finders = require "telescope.finders"
 local make_entry = require "telescope.make_entry"
 local pickers = require "telescope.pickers"
 local utils = require "telescope.utils"
-local internal = require "telescope.builtin.internal"
+--local internal = require "telescope.builtin.internal"
 local conf = require("telescope.config").values
 local entry_display = require "telescope.pickers.entry_display"
 local builtin = require "telescope.builtin"
@@ -64,7 +64,7 @@ function gen_from_quickfix(opts)
   end
 end
 
-internal.GscopeFind = function(opts)
+builtin.GscopeFind = function(opts)
   local locations = vim.fn.getqflist()
 
   if vim.tbl_isempty(locations) then
@@ -92,4 +92,4 @@ internal.GscopeFind = function(opts)
   }):find()
 end
 
-builtin.GscopeFind = internal.GscopeFind
+--builtin.GscopeFind = internal.GscopeFind
