@@ -35,12 +35,19 @@ function gen_from_quickfix(opts)
     local filename = utils.transform_path(opts, entry.filename)
 
     local line_info = { table.concat({ entry.lnum, entry.col }, ":"), "TelescopeResultsLineNr" }
+    local start_pos, end_pos = entry.text:find("<<[^>]+>>%s*")
+    local text = start_pos and entry.text:sub(end_pos + 1) or entry.text
 
-    return displayer {
-      line_info,
-      filename,
-      entry.text:gsub(".* | ", ""),
-    }
+    if true then
+      return string.format("%s %s %s", line_info[1], filename, text)
+    else
+
+      return displayer {
+        line_info,
+        filename,
+        text:gsub(".* | ", ""),
+      }
+    end
   end
 
   return function(entry)
